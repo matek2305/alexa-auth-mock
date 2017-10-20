@@ -33,7 +33,9 @@ public class AuthController {
         @RequestParam("state") String state,
         @RequestParam("redirect_uri") String redirectUri) throws IOException {
 
-        response.sendRedirect(buildRedirectUri(redirectUri, state));
+        final String targetUrl = buildRedirectUri(redirectUri, state);
+        System.out.println("Redirecting to: " + targetUrl);
+        response.sendRedirect(targetUrl);
     }
 
     private String buildRedirectUri(String redirectUri, String state) {
