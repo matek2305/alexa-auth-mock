@@ -39,11 +39,14 @@ public class AuthController {
     }
 
     private String buildRedirectUri(String redirectUri, String state) {
-        return UriComponentsBuilder.fromHttpUrl(redirectUri)
+        final String targetUrl = UriComponentsBuilder.fromHttpUrl(redirectUri)
             .queryParam("state", state)
             .queryParam("access_code", accessCodeGenerator.generate(ACCESS_TOKEN_LENGTH))
             .queryParam("token_type", TOKEN_TYPE)
             .build()
-            .toString();
+            .toUriString();
+
+        String[] array = targetUrl.split("\\?");
+        return array[0] + "#" + array[1];
     }
 }
